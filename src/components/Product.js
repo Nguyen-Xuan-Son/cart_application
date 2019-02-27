@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from './../actions/index';
 
 class Product extends Component {
 
@@ -19,12 +21,13 @@ class Product extends Component {
                     temp.push(<li key={j}><i className="fa fa-star-o"></i></li>);
                 };    
             }
-            
+
             return temp;
         };
-
+        const showH1 = product.disabled ? <div><h1>1111</h1></div> : "";
         return (
-        	<div className="col-lg-4 col-md-6 mb-r">
+        	<div className={product.disabled ? "disabled col-lg-4 col-md-6 mb-r" : "col-lg-4 col-md-6 mb-r"}>
+                {showH1}
                 <div className="card text-center card-cascade narrower">
                     <div className="view overlay hm-white-slight z-depth-1">
                         <img src={product.image}
@@ -48,9 +51,9 @@ class Product extends Component {
                         <div className="card-footer">
                             <span className="left">{product.price}$</span>
                             <span className="right">
-                                <a href="/" className="btn-floating blue-gradient" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add to Cart">
+                                <button onClick={ () => this.onAddToCard(product) } className="btn-floating blue-gradient" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add to Cart">
                                     <i className="fa fa-shopping-cart"></i>
-                                </a>
+                                </button>
                             </span>
                         </div>
                     </div>
@@ -58,6 +61,24 @@ class Product extends Component {
             </div>
         );
     }
+
+    onAddToCard = (product) => {
+        if (!product.disabled) {
+            this.props.onAddToCard(product);
+            this.props.onDisabledProductFromProducts(product.id);
+        }
+    }
 }
 
-export default Product;
+const mapDispatchToProps = (dispatch, props) => (
+    {
+        onAddToCard: (product) => {
+            dispatch(actions.addToCart(product));
+        },
+        onDisabledProductFromProducts: (productId) => {
+            dispatch(actions.disabledProductFromProducts(productId));
+        }
+    }
+)
+
+export default connect(null, mapDispatchToProps)(Product);

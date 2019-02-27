@@ -33,7 +33,8 @@ CartContainer.propTypes = {
                 description: PropTypes.string.isRequired,
                 price: PropTypes.number.isRequired,
                 inventory: PropTypes.number.isRequired,
-                rating: PropTypes.number.isRequired
+                rating: PropTypes.number.isRequired,
+                disabled: PropTypes.bool.isRequired
             }).isRequired,
             quantity: PropTypes.number.isRequired
         }).isRequired

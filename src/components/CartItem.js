@@ -1,6 +1,33 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from './../actions/index';
+import * as actionsType from './../constants/index';
 
 class CartItem extends Component {
+
+    componentWillMount() {
+        console.log('componentWillMount');
+    }
+
+    componentDidMount() {
+        console.log('componentDidMount');
+    }
+
+    componentWillReceiveProps() {
+        console.log('componentWillReceiveProps');
+    }
+
+    shouldComponentUpdate() {
+        console.log('shouldComponentUpdate');
+    }
+
+    componentWillUpdate() {
+        console.log('componentWillUpdate');
+    }
+
+    componentWillUnmount() {
+        console.log('componentWillUnmount');
+    }
 
     render() {
 
@@ -21,19 +48,19 @@ class CartItem extends Component {
                 <td className="center-on-small-only">
                     <span className="qty"> {cartItem.quantity} </span>
                     <div className="btn-group radio-group" data-toggle="buttons">
-                        <label className="btn btn-sm btn-primary
+                        <label onClick={() => this.onUpdateProductInCart(actionsType.SUBTRACT_PRODUCT_IN_CART, cartItem.product.id)} className="btn btn-sm btn-primary
                             btn-rounded waves-effect waves-light">
-                            <a href="/">—</a>
+                            <span>—</span>
                         </label>
-                        <label className="btn btn-sm btn-primary
+                        <label onClick={() => this.onUpdateProductInCart(actionsType.ADD_PRODUCT_IN_CART, cartItem.product.id)} className="btn btn-sm btn-primary
                             btn-rounded waves-effect waves-light">
-                            <a href="/">+</a>
+                            <span>+</span>
                         </label>
                     </div>
                 </td>
                 <td>{cartItem.product.price * cartItem.quantity}$</td>
                 <td>
-                    <button type="button" className="btn btn-sm btn-primary waves-effect waves-light" data-toggle="tooltip" data-placement="top"
+                    <button onClick={() => this.onDeleteProductFromCart(cartItem.product.id)} type="button" className="btn btn-sm btn-primary waves-effect waves-light" data-toggle="tooltip" data-placement="top"
                         title="" data-original-title="Remove item">
                         X
                     </button>
@@ -41,6 +68,25 @@ class CartItem extends Component {
             </tr>
         );
     }
+
+    onDeleteProductFromCart = (productId) => {
+        this.props.onDeleteProductFromCart(productId);
+    }
+
+    onUpdateProductInCart = (actionType, productId) => {
+        this.props.onUpdateProductInCart(actionType, productId);
+    }
 }
 
-export default CartItem;
+const mapDispatchToProps = (dispatch, props) => (
+    {
+        onDeleteProductFromCart: (productId) => {
+            dispatch(actions.deleteProductFromCart(productId));
+        },
+        onUpdateProductInCart: (actionType, productId) => {
+            dispatch(actions.updateProductInCart(actionType, productId));
+        }
+    }
+)
+
+export default connect(null, mapDispatchToProps)(CartItem);
