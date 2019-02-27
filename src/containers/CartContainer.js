@@ -1,21 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import Cart from './../components/Cart';
+import CartItem from './../components/CartItem';
 
-class CartsContainer extends Component {
+class CartContainer extends Component {
 
     render() {
-        console.log('this.props.carts', this.props.carts);
+        const { cart } = this.props;
+        const elCartItem = cart.map((cartItem, index) => (
+            <CartItem cartItem={ cartItem } key={ index } index={ index }/>
+        ))
+
         return (
             <div>
+                <Cart>
+                    { elCartItem }
+                </Cart>
             </div>
         );
     }
 
 }
 
-CartsContainer.propTypes = {
-	carts: PropTypes.arrayOf(
+CartContainer.propTypes = {
+	cart: PropTypes.arrayOf(
 		PropTypes.shape({
             product: PropTypes.shape({
                 id: PropTypes.number.isRequired,
@@ -32,7 +41,7 @@ CartsContainer.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    carts: state.carts
+    cart: state.cart
 })
 
-export default connect(mapStateToProps, null)(CartsContainer);
+export default connect(mapStateToProps, null)(CartContainer);

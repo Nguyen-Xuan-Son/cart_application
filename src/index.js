@@ -11,7 +11,7 @@ import myReducer from './reducers/index';
 
 const store = createStore(
 	myReducer,
-	window.__REDUX_DEVTOOLS_EXTENSION && window.__REDUX_DEVTOOLS_EXTENSION_()		
+	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()		
 );
 
 ReactDOM.render(
