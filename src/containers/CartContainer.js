@@ -3,22 +3,30 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Cart from './../components/Cart';
 import CartItem from './../components/CartItem';
+import CartResult from './../components/CartResult';
 
 class CartContainer extends Component {
 
+    
+
     render() {
         const { cart } = this.props;
-        const elCartItem = cart.map((cartItem, index) => (
-            <CartItem cartItem={ cartItem } key={ index } index={ index }/>
-        ))
 
         return (
-            <div>
-                <Cart>
-                    { elCartItem }
-                </Cart>
-            </div>
+            <Cart>
+                { this.showCartItem(cart) }
+                <CartResult cart={cart}/>
+            </Cart>
         );
+    }
+
+    showCartItem = (cart) => {
+        let elCartItem = 'Empty cart!';
+
+        elCartItem = cart.map((cartItem, index) => (
+            <CartItem cartItem={ cartItem } key={ index } index={ index }/>
+        ));
+        return elCartItem;
     }
 
 }

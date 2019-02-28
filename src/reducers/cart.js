@@ -4,14 +4,20 @@ const initialState = localStorage.getItem('CART') ? JSON.parse(localStorage.getI
 
 const myReducer = (state = initialState, action) => {
 
+	let { product, quantity, productId } = action;
+
 	switch (action.type) {
 
 		case typesAction.ADD_TO_CART:
 
-			let product = {};
-			product.product = action.product;
-			product.quantity = 1;
-			state.push(product);
+			let index = findIndexInState(state, product);
+
+			if (index !== -1) {
+				state[index].quantity += 1;
+			} else {
+				state.push({product, quantity});
+			}
+
 			
 			localStorage.setItem('CART', JSON.stringify([...state]));
 
@@ -19,7 +25,7 @@ const myReducer = (state = initialState, action) => {
 
 		case typesAction.DELETE_PRODUCT_FROM_CART:
 			state.forEach((product, index) => {
-				if (product.product.id === action.productId) {
+				if (product.product.id === productId) {
 					state.splice(index, 1);
 				}
 			});
@@ -31,7 +37,7 @@ const myReducer = (state = initialState, action) => {
 		case typesAction.ADD_PRODUCT_IN_CART:
 
 			state.forEach((product, index) => {
-				if (product.product.id === action.productId) {
+				if (product.product.id === productId) {
 					product.quantity += 1;
 				}
 			});
@@ -43,7 +49,7 @@ const myReducer = (state = initialState, action) => {
 		case typesAction.SUBTRACT_PRODUCT_IN_CART:
 
 			state.forEach((product, index) => {
-				if (product.product.id === action.productId && product.quantity >1) {
+				if (product.product.id === productId && product.quantity >1) {
 					product.quantity -= 1;
 				}
 			});
@@ -58,5 +64,19 @@ const myReducer = (state = initialState, action) => {
 	}
 
 };
+
+const findIndexInState = (state, product) => {
+	let index = -1;
+
+	if (state.length) {
+		for (let i = 0; i < state.length; i++) {
+			if (product.id === state[i].product.id) {
+				index = i;
+			}
+		}
+	}
+
+	return index;
+}
 
 export default myReducer;

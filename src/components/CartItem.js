@@ -5,30 +5,6 @@ import * as actionsType from './../constants/index';
 
 class CartItem extends Component {
 
-    componentWillMount() {
-        console.log('componentWillMount');
-    }
-
-    componentDidMount() {
-        console.log('componentDidMount');
-    }
-
-    componentWillReceiveProps() {
-        console.log('componentWillReceiveProps');
-    }
-
-    shouldComponentUpdate() {
-        console.log('shouldComponentUpdate');
-    }
-
-    componentWillUpdate() {
-        console.log('componentWillUpdate');
-    }
-
-    componentWillUnmount() {
-        console.log('componentWillUnmount');
-    }
-
     render() {
 
         const { cartItem } = this.props;

@@ -3,6 +3,9 @@ import React, { Component } from 'react';
 class CartResult extends Component {
 
     render() {
+
+        const { cart } = this.props;
+
         return (
         	<tr>
                 <td colSpan="3"></td>
@@ -13,7 +16,7 @@ class CartResult extends Component {
                 </td>
                 <td>
                     <h4>
-                        <strong>15$</strong>
+                        <strong>{this.showTotalMount(cart)}$</strong>
                     </h4>
                 </td>
                 <td colSpan="3">
@@ -24,6 +27,18 @@ class CartResult extends Component {
             </tr>
         );
     }
+
+    showTotalMount = (cart) => {
+        let result = 0;
+
+        if (cart.length) {
+            cart.forEach((product) => {
+                result += (product.quantity * product.product.price); 
+            })
+        }
+        return result;
+    }
+
 }
 
 export default CartResult;

@@ -51,7 +51,7 @@ class Product extends Component {
                         <div className="card-footer">
                             <span className="left">{product.price}$</span>
                             <span className="right">
-                                <button onClick={ () => this.onAddToCard(product) } className="btn-floating blue-gradient" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add to Cart">
+                                <button onClick={ () => this.onAddToCard(product, 1) } className="btn-floating blue-gradient" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add to Cart">
                                     <i className="fa fa-shopping-cart"></i>
                                 </button>
                             </span>
@@ -62,21 +62,15 @@ class Product extends Component {
         );
     }
 
-    onAddToCard = (product) => {
-        if (!product.disabled) {
-            this.props.onAddToCard(product);
-            this.props.onDisabledProductFromProducts(product.id);
-        }
+    onAddToCard = (product, quantity) => {
+        this.props.onAddToCard(product, quantity);
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => (
     {
-        onAddToCard: (product) => {
-            dispatch(actions.addToCart(product));
-        },
-        onDisabledProductFromProducts: (productId) => {
-            dispatch(actions.disabledProductFromProducts(productId));
+        onAddToCard: (product, quantity) => {
+            dispatch(actions.addToCart(product, quantity));
         }
     }
 )
