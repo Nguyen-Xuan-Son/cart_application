@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from './../actions/index';
+import * as messages from './../constants/Message';
 
 class Product extends Component {
 
@@ -51,7 +52,7 @@ class Product extends Component {
                         <div className="card-footer">
                             <span className="left">{product.price}$</span>
                             <span className="right">
-                                <button onClick={ () => this.onAddToCard(product, 1) } className="btn-floating blue-gradient" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add to Cart">
+                                <button onClick={ () => this.onAddToCard(product) } className="btn-floating blue-gradient" data-toggle="tooltip" data-placement="top" title="" data-original-title="Add to Cart">
                                     <i className="fa fa-shopping-cart"></i>
                                 </button>
                             </span>
@@ -62,8 +63,9 @@ class Product extends Component {
         );
     }
 
-    onAddToCard = (product, quantity) => {
-        this.props.onAddToCard(product, quantity);
+    onAddToCard = (product) => {
+        this.props.onAddToCard(product, 1);
+        this.props.onChangeMessage();
     }
 }
 
@@ -71,6 +73,9 @@ const mapDispatchToProps = (dispatch, props) => (
     {
         onAddToCard: (product, quantity) => {
             dispatch(actions.addToCart(product, quantity));
+        },
+        onChangeMessage: () => {
+            dispatch(actions.updateMessage(messages.MSG_ADD_TO_CART_SUCCESS));
         }
     }
 )

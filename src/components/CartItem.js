@@ -24,11 +24,11 @@ class CartItem extends Component {
                 <td className="center-on-small-only">
                     <span className="qty"> {cartItem.quantity} </span>
                     <div className="btn-group radio-group" data-toggle="buttons">
-                        <label onClick={() => this.onUpdateProductInCart(actionsType.SUBTRACT_PRODUCT_IN_CART, cartItem.product.id)} className="btn btn-sm btn-primary
+                        <label onClick={() => this.onUpdateProductInCart(actionsType.SUBTRACT_PRODUCT_IN_CART, cartItem)} className="btn btn-sm btn-primary
                             btn-rounded waves-effect waves-light">
                             <span>—</span>
                         </label>
-                        <label onClick={() => this.onUpdateProductInCart(actionsType.ADD_PRODUCT_IN_CART, cartItem.product.id)} className="btn btn-sm btn-primary
+                        <label onClick={() => this.onUpdateProductInCart(actionsType.ADD_PRODUCT_IN_CART, cartItem)} className="btn btn-sm btn-primary
                             btn-rounded waves-effect waves-light">
                             <span>+</span>
                         </label>
@@ -36,7 +36,7 @@ class CartItem extends Component {
                 </td>
                 <td>{cartItem.product.price * cartItem.quantity}$</td>
                 <td>
-                    <button onClick={() => this.onDeleteProductFromCart(cartItem.product.id)} type="button" className="btn btn-sm btn-primary waves-effect waves-light" data-toggle="tooltip" data-placement="top"
+                    <button onClick={() => this.onDeleteProductFromCart(cartItem)} type="button" className="btn btn-sm btn-primary waves-effect waves-light" data-toggle="tooltip" data-placement="top"
                         title="" data-original-title="Remove item">
                         X
                     </button>
@@ -45,22 +45,22 @@ class CartItem extends Component {
         );
     }
 
-    onDeleteProductFromCart = (productId) => {
-        this.props.onDeleteProductFromCart(productId);
+    onDeleteProductFromCart = (product) => {
+        this.props.onDeleteProductFromCart(product);
     }
 
-    onUpdateProductInCart = (actionType, productId) => {
-        this.props.onUpdateProductInCart(actionType, productId);
+    onUpdateProductInCart = (actionType, product) => {
+        this.props.onUpdateProductInCart(actionType, product);
     }
 }
 
 const mapDispatchToProps = (dispatch, props) => (
     {
-        onDeleteProductFromCart: (productId) => {
-            dispatch(actions.deleteProductFromCart(productId));
+        onDeleteProductFromCart: (product) => {
+            dispatch(actions.deleteProductFromCart(product));
         },
-        onUpdateProductInCart: (actionType, productId) => {
-            dispatch(actions.updateProductInCart(actionType, productId));
+        onUpdateProductInCart: (actionType, product) => {
+            dispatch(actions.updateProductInCart(actionType, product.product));
         }
     }
 )

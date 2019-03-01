@@ -2,8 +2,8 @@ import * as constantsType from './../constants/index';
 
 export const addToCart = (product, quantity) => ({ type: constantsType.ADD_TO_CART, product, quantity });
 
-export const disabledProductFromProducts = (productId) => ({ type: constantsType.DISABLED_PRODUCT_FROM_PRODUCTS, productId });
+export const deleteProductFromCart = (product) => ({ type: constantsType.DELETE_PRODUCT_FROM_CART, product });
 
-export const deleteProductFromCart = (productId) => ({ type: constantsType.DELETE_PRODUCT_FROM_CART, productId });
+export const updateProductInCart = (type, product) => ({ type, product });
 
-export const updateProductInCart = (type, productId) => ({ type, productId });
+export const updateMessage = (message) => ({ type: constantsType.CHANGE_MESSAGE, message });
