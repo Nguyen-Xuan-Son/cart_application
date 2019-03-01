@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as actions from './../actions/index';
-import * as messages from './../constants/Message';
 
 class Product extends Component {
 
@@ -69,15 +66,4 @@ class Product extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch, props) => (
-    {
-        onAddToCard: (product, quantity) => {
-            dispatch(actions.addToCart(product, quantity));
-        },
-        onChangeMessage: () => {
-            dispatch(actions.updateMessage(messages.MSG_ADD_TO_CART_SUCCESS));
-        }
-    }
-)
-
-export default connect(null, mapDispatchToProps)(Product);
+export default Product;

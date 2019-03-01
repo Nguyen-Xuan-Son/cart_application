@@ -3,13 +3,20 @@ import Products from './../components/Products';
 import Product from './..//components/Product';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import * as actions from './../actions/index';
+import * as messages from './../constants/Message';
 
 class ProductsContainer extends Component {
 
     render() {
 
-    	const elProducts = this.props.products.map((product, index) => {
-            return <Product key={ index } product={ product } />
+        const { onAddToCard, onChangeMessage, products } = this.props;
+
+    	const elProducts = products.map((product, index) => {
+            return <Product key={ index }
+                            product={ product }
+                            onChangeMessage={onChangeMessage}
+                            onAddToCard={onAddToCard} />
         });
 
         return (
@@ -41,4 +48,15 @@ const mapStateToProps = state => ({
     products: state.products
 })
 
-export default connect(mapStateToProps, null)(ProductsContainer);
+const mapDispatchToProps = (dispatch, props) => (
+    {
+        onAddToCard: (product, quantity) => {
+            dispatch(actions.addToCart(product, quantity));
+        },
+        onChangeMessage: () => {
+            dispatch(actions.addToCartMessage(messages.MSG_ADD_TO_CART_SUCCESS));
+        }
+    }
+)
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsContainer);

@@ -6,4 +6,4 @@ export const deleteProductFromCart = (product) => ({ type: constantsType.DELETE_
 
 export const updateProductInCart = (type, product) => ({ type, product });
 
-export const updateMessage = (message) => ({ type: constantsType.CHANGE_MESSAGE, message });
+export const addToCartMessage = (message) => ({ type: constantsType.ADD_TO_CART_SUCCESS, message });

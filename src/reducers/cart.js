@@ -4,7 +4,7 @@ const initialState = localStorage.getItem('CART') ? JSON.parse(localStorage.getI
 
 const myReducer = (state = initialState, action) => {
 
-	let { type, product, quantity } = action;
+	let { product, quantity } = action;
 	let index = findIndexInState(state, product);
 
 	switch (action.type) {

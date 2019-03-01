@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import * as actions from './../actions/index';
 import * as actionsType from './../constants/index';
 
 class CartItem extends Component {
@@ -54,15 +52,4 @@ class CartItem extends Component {
     }
 }
 
-const mapDispatchToProps = (dispatch, props) => (
-    {
-        onDeleteProductFromCart: (product) => {
-            dispatch(actions.deleteProductFromCart(product));
-        },
-        onUpdateProductInCart: (actionType, product) => {
-            dispatch(actions.updateProductInCart(actionType, product.product));
-        }
-    }
-)
-
-export default connect(null, mapDispatchToProps)(CartItem);
+export default CartItem;
